@@ -1,0 +1,87 @@
+1) The player class will take the spritesheet for the player, and will internally store the state of the player and render the portion from the spritesheet accordingly . 
+player is currently 95 width 159 height , 
+the 0th row is for down , next for left , next for right , next for up 
+
+the 4th column of the player is the state that we leave him at if he has stopped . , when the key up is received . 
+
+Reendr function of the player will now also use the state of the player (not as an input , but rather to generate a clip and pass as an input to texture rendering )
+
+
+Whenver any key is pressed , even if repeat key then we first update the state , then we check for repeat , if repeat is false , then we update the velocity
+
+If the player is trying to move to a wall currently its legs keep moving , since in the collision logic we check that if the dot moved out we just revert back the postion but the state still changes. 
+
+Player now has a health and energy bar that will be displayed on the the top left . 
+
+
+For text what I am gonna do is , say if I have health then it is associated with the player. 
+When I render the player , the health of the player is also rendered at the top right corener of the screen like a bar or text  . 
+Player's name is also rendered and so on , these are all the atttributes of the player and are all rendered. 
+So a player now will internally store 2-3 textures relateing to the pics. 
+In the loadMedia/ 
+
+
+Caution :: Abhi I have not even worked on closing the stuff that I load, do work on it as well, else  I will be totally fucked. 
+
+In bool init() we do not load or prepare any texture ,
+what we do is 
+1) Initialise SDL 
+2) Make a window
+3)Make the renderer
+4) Set the renderer draw color 
+5) Do the settings for loading Png
+6) Initialise TTF
+
+Now the player is gonna store all his textures, 
+
+Abhi init function does not take the players as input , currenly it just initialises the globa player.  but later it will take an array of players as input and initilasie them 
+Even the renderer will be passed as a value to the player.
+
+What you can do is at the end see all types of deallocations that have been done, and if there is some kind you can do then do that 
+
+Move :: you check the tile and display message
+HandleEvent :: you just see if the correct key is pressed nd then you perform the task if done
+
+
+
+
+
+What I will do is , I will not allow the player to move on any object of layer3 , to check this I will check that his leg line must not be inside or on any building or object of layer3 except for the transparent part. This will make the correct effect. 
+
+
+
+Abhi health money textrues mein relative karna hai not abs.
+
+Now what I am gonna do is, there is gonna be a game timer , which is passed to the player as well with a pointer during initialisation. The game loop is running, it will be in phases , first phase will be when only the start screen is shown , second will be when the player is playing the game, third phase will be when the game shows payer statuses (kind of a pause phase) , fourth phase will be when the game has ended and displaying winner player. 
+
+The game is gonna have an attribute named phase. 
+
+Each phase has certain buttons , each button has pointer access to the main game phase, it can change the game phase, the game loop runs on the basis of phase you are in. 
+
+The timer starts running when you are in phase 2 , it gets paused in phase3 and stops in phase 4 . 
+
+When in phase 2 we would be getting events to handle , for the player handle we will check if he is on a certain tile and a certain key is pressed then the function will be called using the function map of the player. Thsi function woudld change player state variables or might put the process flag to 1 , when the process flag is 1 , the events other than quit won't be detected, only the player is rendered again and again. 
+
+In the process tag vala things , when the process is going on I will try to display the process going on as well . 
+
+Each player will also have a tasks accomplished value and he wins if he accomplishes all his tasks before others. 
+
+Now each button is also gonna store a sound effect which is done when the button is pressed. 
+
+So while initialising the button its things like the sound unit is initialised, also the sound file is passed, the png file for the button along with the place of the button on the page , the game timer is also passed in the initialisation.  
+In the load media the texture is created , the button is also passed with the game timer reference that the button can change. 
+
+
+Agar koi bhi entity negative ho jaati hai then uska flag raise kar do and handle that flag appropriately
+
+Bottom String , that tells instruction , health bar side mein honi chahiye , 
+Sound with buttons , sound on collission , game timer , pause state , pause button design , 
+
+
+I do onspecialsquare(tileset)  two times togethr, this is a heavy process and must be done once
+
+Don't forget to close music files !!! 
+
+Music pause button bhi daal sakte ho 
+
+Make sure that the gamesound is on loop . 
